@@ -1,7 +1,8 @@
 var app = module.exports = require('express')();
 
 app.get('/:user', function(req, res, next) {
-  User.find({ where: { login: req.params.user } }).done(function(err, user) {
+  console.log(req.params.user);
+  User.find({ where: { login: req.params.user } }).done(function(user,err) {
     if (!user) {
       return next();
     }

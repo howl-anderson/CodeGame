@@ -28,7 +28,7 @@ global.Game = function(mapId, code1, code2, options, callback) {
     options = null;
   }
   if (options && options.cache === false) {
-    Map.find(mapId).done(function(err, map) {
+    Map.find(mapId).done(function(map, err) {
       if (err) {
         return callback(err);
       }
@@ -41,7 +41,7 @@ global.Game = function(mapId, code1, code2, options, callback) {
   }
   var code1Md5 = md5(code1);
   var code2Md5 = md5(code2);
-  Result.find({ where: { MapId: mapId, code1: code1Md5, code2: code2Md5 } }).done(function(err, result) {
+  Result.find({ where: { MapId: mapId, code1: code1Md5, code2: code2Md5 } }).done(function(result, err) {
     if (err) {
       return callback(err);
     }
@@ -55,7 +55,7 @@ global.Game = function(mapId, code1, code2, options, callback) {
       if (!map) {
         return callback(new Error('没有找到对应的地图'));
       }
-      gameQueue.push({ mapData: map.parse(), code1: code1, code2: code2 }, function(err, replay) {
+      gameQueue.push({ mapData: map.parse(), code1: code1, code2: code2 }, function(replay, err) {
         if (err) {
           return callback(err);
         }
